@@ -1,7 +1,5 @@
 package com.impuls8.ecommerce.users;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping (path="/api/productos/login")//requesmapping crea una ruta para todos los metodos (get, post, delete...)
+@RequestMapping (path="/api/users/login")//requesmapping crea una ruta para todos los metodos (get, post, delete...)
 @CrossOrigin(origins="*")//corssorigin otorga permisos a la url especificada para acceder
 
 public class LoginUserController {
@@ -24,8 +22,8 @@ public class LoginUserController {
 	}//constructor
 	
 	@PostMapping
-	public String getUser(@RequestBody String password, String email) {
-		return loginUserService.getUser(password, email);
+	public String validateUser(@RequestBody User user) {
+		return loginUserService.validateUser(user);
 	}//addProducto
 	
 

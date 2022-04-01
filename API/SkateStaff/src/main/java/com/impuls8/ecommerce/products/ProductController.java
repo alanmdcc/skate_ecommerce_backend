@@ -42,7 +42,7 @@ public class ProductController {
 		return productService.getProduct(prodId);	
 	}//getProduct
 	
-	@DeleteMapping
+	@DeleteMapping(path="{prodId}")
 	public Product deleteProduct(@PathVariable("prodId") Long prodId) {
 		return productService.deleteProduct(prodId);
 	}//deleteProduct
@@ -57,7 +57,7 @@ public class ProductController {
 			@RequestParam(required=false) String nombre,
 			@RequestParam(required=false) String descripcion,
 			@RequestParam(required=false) String URL_imagen,
-			@RequestParam(required=false) double precio) {
+			@RequestParam(required=false) Double precio) {
 			return productService.udpateProduct(prodId,nombre,descripcion,URL_imagen,precio);
 	}//deleteProduct
 }//class

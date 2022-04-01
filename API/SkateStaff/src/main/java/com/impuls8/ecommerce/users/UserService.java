@@ -31,9 +31,9 @@ public final ArrayList<User> lista= new ArrayList<User>();
 
 	public User getUser(Long userId) {
 	   User tmpProd =null;
-		for (User User : lista) {
-			if(User.getId()==userId) {
-				tmpProd=User;
+		for (User user : lista) {
+			if(user.getId()==userId) {
+				tmpProd=user;
 				break;
 			}//if
 		}//foreach	
@@ -68,17 +68,20 @@ public final ArrayList<User> lista= new ArrayList<User>();
 
 
 	public String addUser(User user) {
-		String message="Se agrego un nuevo usuario con los siguientes datos: "+user.toString();
-		lista.add(user);
+		boolean tmpValidation = true;
+		String message ="";
 		for (User userLista : lista) {
-			if(user.getUserEmail()==userLista.getUserEmail()) {
+			if(user.getUserEmail().equals(userLista.getUserEmail())) {
+				tmpValidation = false;
+				System.out.println("Correos iguales");
 				message="El correo ingresado ya existe";
 				break;
 			}//if
-			else {
-			 continue;
-			}
 		}//foreach
+		if(tmpValidation) {
+			lista.add(user);
+			message="Se agrego un nuevo usuario con los siguientes datos: "+user.toString();
+		}//if
 		
 		return message;
 	}//addUser

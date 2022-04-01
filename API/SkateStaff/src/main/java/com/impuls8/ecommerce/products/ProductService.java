@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
-import com.impuls8.ecommerce.products.Product;
-
 @Service
 public class ProductService {
 
@@ -46,7 +44,7 @@ public final ArrayList<Product> lista= new ArrayList<Product>();
 		Product tmpProd =null;
 		for (Product product : lista) {
 			if(product.getIdProduct()==prodId) {
-				lista.remove(lista.indexOf(product));
+				tmpProd = lista.remove(lista.indexOf(product));
 				break;
 			}//if
 		}//foreach	

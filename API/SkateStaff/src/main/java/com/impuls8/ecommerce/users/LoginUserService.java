@@ -1,36 +1,28 @@
 package com.impuls8.ecommerce.users;
 
-import java.util.ArrayList;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class LoginUserService {
 	
 
-	private  UserService userService;
+private  UserService userService = new UserService();
 	
-	public ArrayList<User> getUser() {
-		return userService.lista;
-	}
-
-	public String getUser( String password,String email) {
-		   User tmpProd =null;
+	public String validateUser(User user) {
+		User tmpUser =null;
 		   String message="El usuario no está registrado";
-			for (User user : userService.lista) {
-				if(user.getUserEmail()==email ) {
-					tmpProd=user;
-					if(user.getPassword()==password) {
-						tmpProd=user;
+			for (User userLista : userService.lista) {
+				if(userLista.getUserEmail().equals(user.getUserEmail())){
+					tmpUser=userLista;
+					if(tmpUser.getPassword().equals(user.getPassword())) {
 						message="Inicio de sesión exitoso";
 						break;
 					}//if
+					message="Email no coincide con la contraseña";
+					break;
 				}//if
-				
-				
 			}//foreach	
 			return message;
-		}//getUser
+	}//validateUser
 	
-}
+}//class LoginUserService

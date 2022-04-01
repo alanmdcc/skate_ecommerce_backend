@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping (path="/api/productos/")//requesmapping crea una ruta para todos los metodos (get, post, delete...)
+@RequestMapping (path="/api/users/")//requesmapping crea una ruta para todos los metodos (get, post, delete...)
 @CrossOrigin(origins="*")//corssorigin otorga permisos a la url especificada para acceder
 
 public class UserController {
