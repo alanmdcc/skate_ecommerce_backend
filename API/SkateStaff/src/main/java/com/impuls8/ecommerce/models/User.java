@@ -24,7 +24,7 @@ public class User {
 	public User() {
 		total++;
 		this.id = total;
-	}// constructor
+	}// constructor vacío
 
 	public String getUserName() {
 		return userName;
