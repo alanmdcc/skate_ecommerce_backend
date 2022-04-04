@@ -1,4 +1,4 @@
-package com.impuls8.ecommerce.users;
+package com.impuls8.ecommerce.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -7,16 +7,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping (path="/api/users/login")//requesmapping crea una ruta para todos los metodos (get, post, delete...)
-@CrossOrigin(origins="*")//corssorigin otorga permisos a la url especificada para acceder
+import com.impuls8.ecommerce.models.User;
+import com.impuls8.ecommerce.service.LoginUserService;
 
+
+
+@RestController
+@RequestMapping (path="/api/users/login")
+@CrossOrigin(origins="*")
 public class LoginUserController {
 
 	private final LoginUserService loginUserService;
-	//inyección de dependencias
 	
-	@Autowired//autowired ejecuta el constructor una sola vez
+	@Autowired
 	public LoginUserController( LoginUserService loginUserService) {
 		this.loginUserService=loginUserService;
 	}//constructor
@@ -26,5 +29,4 @@ public class LoginUserController {
 		return loginUserService.validateUser(user);
 	}//addProducto
 	
-
-}
+}//LoginUserController

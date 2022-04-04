@@ -1,5 +1,4 @@
-package com.impuls8.ecommerce.products;
-
+package com.impuls8.ecommerce.controllers;
 
 import java.util.ArrayList;
 
@@ -15,29 +14,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.impuls8.ecommerce.models.Product;
+import com.impuls8.ecommerce.service.ProductService;
+
 @RestController
-@RequestMapping (path="/api/products/")//requesmapping crea una ruta para todos los metodos (get, post, delete...)
-@CrossOrigin(origins="*")//corssorigin otorga permisos a la url especificada para acceder
-
-
+@RequestMapping (path="/api/products/")
+@CrossOrigin(origins="*")
 public class ProductController {
 
 	private ProductService productService;
-	//inyección de dependencias
 	
-	@Autowired//autowired ejecuta el constructor una sola vez
+	@Autowired
 	public ProductController(ProductService productService) {
 		this.productService=productService;
 	}//constructor
 	
 	@GetMapping
 	public ArrayList<Product>getProducts() {
-		
-    return productService.getProducts();
-
+		return productService.getProducts();
 	}//getProducts
 	
-	@GetMapping(path="{prodId}")//se especifica que la ruta contendrá un id de product
+	@GetMapping(path="{prodId}")
 	public Product getProduct(@PathVariable("prodId") Long prodId) {
 		return productService.getProduct(prodId);	
 	}//getProduct
@@ -59,5 +56,6 @@ public class ProductController {
 			@RequestParam(required=false) String URL_imagen,
 			@RequestParam(required=false) Double precio) {
 			return productService.udpateProduct(prodId,nombre,descripcion,URL_imagen,precio);
-	}//deleteProduct
+	}//updateProduct
+	
 }//class

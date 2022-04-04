@@ -1,4 +1,4 @@
-package com.impuls8.ecommerce.products;
+package com.impuls8.ecommerce.models;
 
 public class Product {
 
@@ -71,8 +71,6 @@ public class Product {
 		return "Product [nameProduct=" + nameProduct + ", descriptionProduct=" + descriptionProduct
 				+ ", productPicture=" + productPicture + ", priceProduct=" + priceProduct + ", idProduct=" + idProduct
 				+ ", idCategory=" + idCategory + "]";
-	}
+	}//toString
 	
-	
-
-}//class
+}//Product

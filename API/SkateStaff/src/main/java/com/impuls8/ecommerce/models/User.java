@@ -1,6 +1,7 @@
-package com.impuls8.ecommerce.users;
+package com.impuls8.ecommerce.models;
 
 public class User {
+
 	private String userName;
 	private String userEmail;
 	private String userPhone;
@@ -81,6 +82,6 @@ public class User {
 	public String toString() {
 		return "User [userName=" + userName + ", userEmail=" + userEmail + ", userPhone=" + userPhone + ", password="
 				+ password + ", isAdmin=" + isAdmin + ", id=" + id + "]";
-	}
-
-}// User
+	}//toString
+	
+}//User

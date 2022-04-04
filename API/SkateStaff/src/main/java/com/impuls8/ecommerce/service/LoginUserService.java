@@ -1,12 +1,13 @@
-package com.impuls8.ecommerce.users;
+package com.impuls8.ecommerce.service;
 
 import org.springframework.stereotype.Service;
+
+import com.impuls8.ecommerce.models.User;
 
 @Service
 public class LoginUserService {
 	
-
-private  UserService userService = new UserService();
+	private  UserService userService = new UserService();
 	
 	public String validateUser(User user) {
 		User tmpUser =null;
@@ -25,4 +26,4 @@ private  UserService userService = new UserService();
 			return message;
 	}//validateUser
 	
-}//class LoginUserService
+}//LoginUserService

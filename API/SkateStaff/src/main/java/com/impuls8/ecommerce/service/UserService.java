@@ -1,13 +1,15 @@
-package com.impuls8.ecommerce.users;
+package com.impuls8.ecommerce.service;
 
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
+import com.impuls8.ecommerce.models.User;
+
 @Service
 public class UserService {
-
-public final ArrayList<User> lista= new ArrayList<User>();
+	
+	public final ArrayList<User> lista= new ArrayList<User>();
 	
 	public UserService() {
 		lista.add(		
@@ -85,6 +87,5 @@ public final ArrayList<User> lista= new ArrayList<User>();
 		
 		return message;
 	}//addUser
-
 
 }//UserService

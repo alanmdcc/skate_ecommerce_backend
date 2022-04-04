@@ -1,4 +1,4 @@
-package com.impuls8.ecommerce.users;
+package com.impuls8.ecommerce.controllers;
 
 import java.util.ArrayList;
 
@@ -14,29 +14,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping (path="/api/users/")//requesmapping crea una ruta para todos los metodos (get, post, delete...)
-@CrossOrigin(origins="*")//corssorigin otorga permisos a la url especificada para acceder
+import com.impuls8.ecommerce.models.User;
+import com.impuls8.ecommerce.service.UserService;
 
+@RestController
+@RequestMapping (path="/api/users/")
+@CrossOrigin(origins="*")
 public class UserController {
-		
-	   //final establece que es una constante
+
 		private final UserService userService;
-		//inyección de dependencias
 		
-		@Autowired//autowired ejecuta el constructor una sola vez
+		@Autowired
 		public UserController( UserService userService) {
 			this.userService=userService;
 		}//constructor
 		
 		@GetMapping
 		public ArrayList<User>getUsers() {
-			
-	    return userService.getUsers();
-
+			return userService.getUsers();
 		}//getProductos
 		
-		@GetMapping(path="{userId}")//se especifica que la ruta contendrá un id de usuario
+		@GetMapping(path="{userId}")
 		public User getUser(@PathVariable("userId") Long userId) {
 			return userService.getUser(userId);	
 		}//getProducto
@@ -61,6 +59,5 @@ public class UserController {
 				return userService.updateUser(userId, nombre, email, phone, password, isAdmin);
 		}//deleteProducto
 
-		
+}//UserController
 
-}

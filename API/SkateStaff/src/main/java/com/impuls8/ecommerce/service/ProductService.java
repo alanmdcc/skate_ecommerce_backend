@@ -1,13 +1,15 @@
-package com.impuls8.ecommerce.products;
+package com.impuls8.ecommerce.service;
 
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
+import com.impuls8.ecommerce.models.Product;
+
 @Service
 public class ProductService {
 
-public final ArrayList<Product> lista= new ArrayList<Product>();
+	public final ArrayList<Product> lista= new ArrayList<Product>();
 	
 	public ProductService() {
 		lista.add(		
@@ -72,4 +74,4 @@ public final ArrayList<Product> lista= new ArrayList<Product>();
 		return product;
 	}//addProduct
 
-}
+}//ProductService
