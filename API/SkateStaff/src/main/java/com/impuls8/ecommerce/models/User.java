@@ -1,29 +1,38 @@
 package com.impuls8.ecommerce.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table (name="usuario")
 public class User {
 
+	@Id
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@Column(name="id", unique=true, nullable=false)
+	private Long id;
 	private String userName;
 	private String userEmail;
 	private String userPhone;
 	private String password;
 	private boolean isAdmin;
-	private static int total;
-	private int id;
 
 	public User(String userName, String userEmail, String userPhone, String password, boolean isAdmin) {
 		super();
+		this.id= id;
 		this.userName = userName;
 		this.userEmail = userEmail;
 		this.userPhone = userPhone;
 		this.password = password;
 		this.isAdmin = isAdmin;
-		total++;
-		this.id = total;
 	}// contructor
 
 	public User() {
-		total++;
-		this.id = total;
+		
 	}// constructor vacío
 
 	public String getUserName() {
@@ -66,15 +75,7 @@ public class User {
 		this.isAdmin = isAdmin;
 	}
 
-	public static int getTotal() {
-		return total;
-	}
-
-	public static void setTotal(int total) {
-		User.total = total;
-	}
-
-	public int getId() {
+	public Long getId() {
 		return id;
 	}// getters y setters
 

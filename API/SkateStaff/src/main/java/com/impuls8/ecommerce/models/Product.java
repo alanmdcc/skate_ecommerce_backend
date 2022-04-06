@@ -1,12 +1,25 @@
 package com.impuls8.ecommerce.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="product")
 public class Product {
 
+	@Id
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@Column(name="id", unique=true, nullable=false)
+    
+	private Long idProduct;
 	private String nameProduct;
 	private String descriptionProduct;
 	private String productPicture;
 	private double priceProduct;
-	private int idProduct;
 	private int idCategory;
 	private static int total=0;
 	public Product(String nameProduct, String descriptionProduct, String productPicture, double priceProduct,
@@ -16,14 +29,12 @@ public class Product {
 		this.descriptionProduct = descriptionProduct;
 		this.productPicture = productPicture;
 		this.priceProduct = priceProduct;
-		total++;
-		this.idProduct = total;
+		this.idProduct = idProduct;
 		this.idCategory = idCategory;
 	}
 	
 	public Product() {
-		total++;
-		this.idProduct = total;
+		
 	}//constructor
 	
 	public String getNameProduct() {
@@ -62,7 +73,7 @@ public class Product {
 	public static void setTotal(int total) {
 		Product.total = total;
 	}
-	public int getIdProduct() {
+	public Long getIdProduct() {
 		return idProduct;
 	}
 	
