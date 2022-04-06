@@ -25,7 +25,7 @@ public class LoginUserController {
 	}//constructor
 	
 	@PostMapping
-	public String validateUser(@RequestBody User user) {
+	public boolean validateUser(@RequestBody User user) {
 		return loginUserService.validateUser(user);
 	}//addProducto
 	
