@@ -19,7 +19,7 @@ import io.jsonwebtoken.SignatureException;
 public class JwtFilter extends GenericFilterBean {
 
 	
-	public static String secret = "CHmix9-impuls8";
+	public static String secret = "CHMIX9-gatitos-Linux-y-Drama-20220405";
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -29,7 +29,7 @@ public class JwtFilter extends GenericFilterBean {
 		String authHeader = httpServletRequest.getHeader("authorization");
 		
 		if ( 
-				("POST".equals(httpServletRequest.getMethod())) ||
+				( ("POST".equals(httpServletRequest.getMethod())) && (! httpServletRequest.getRequestURI().contains("/api/users/") )  ) ||
 				( ("GET".equals(httpServletRequest.getMethod())) && (! httpServletRequest.getRequestURI().contains("/api/products/") )  )||
 				("PUT".equals(httpServletRequest.getMethod())) ||
 				("DELETE".equals(httpServletRequest.getMethod()))

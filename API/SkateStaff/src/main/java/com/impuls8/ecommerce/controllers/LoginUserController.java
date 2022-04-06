@@ -23,7 +23,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 
 @RestController
-@RequestMapping (path="/api/users/login")
+@RequestMapping (path="/api/login/")
 @CrossOrigin(origins="*")
 public class LoginUserController {
 
@@ -43,10 +43,10 @@ public class LoginUserController {
 		throw new ServletException("nombre de usuario o contrase;a incorrectos");
 	}
 
-	private String generateToken(String username) {
+	private String generateToken(String userName) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.HOUR, 10);
-		return Jwts.builder().setSubject(username).claim("role", "user")
+		return Jwts.builder().setSubject(userName).claim("role", "userName")
 				.setIssuedAt(new Date()).setExpiration(calendar.getTime())
 				.signWith(SignatureAlgorithm.HS256, JwtFilter.secret).compact();
 	}// generateToken

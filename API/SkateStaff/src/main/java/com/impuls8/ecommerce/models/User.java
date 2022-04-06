@@ -28,6 +28,9 @@ public class User {
 		this.password = password;
 		this.isAdmin = isAdmin;
 	}
+	public User() {
+	
+	}
 	public Long getIdUser() {
 		return idUser;
 	}

@@ -30,6 +30,10 @@ public class SHAUtils {
 		String res = createHash(original);
 		return res.equalsIgnoreCase(hash);
 	}
-	}
+	
+//	public static void main(String[] args) {
+//		System.out.println(createHash("ipn"));
+//	}
+}
 	
 

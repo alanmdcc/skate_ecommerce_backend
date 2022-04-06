@@ -63,12 +63,14 @@ public class UserService {
 		boolean res = false;
 		Optional<User> userByName=userRepository.findByUserName(user.getUserName());
 		if(userByName.isPresent()) {
+			System.out.println("si existe");
 			User u = userByName.get();;
 			if(SHAUtils.verifyHash(user.getPassword(), u.getPassword())) {
 				res = true;
 				
 			}
 		}
+		System.out.println("no existe");
 		return res;
 	}
 }//UserService
