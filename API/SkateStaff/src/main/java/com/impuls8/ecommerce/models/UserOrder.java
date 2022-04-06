@@ -19,16 +19,16 @@ public class UserOrder {
 	@Column(name="idUserOrder", unique=true, nullable=false)
 	private Long idUserOrder;
 	private ZonedDateTime dateUserOrder;
-	private Long Usuario_idUser;
+	private Long User_idUser;
 	
 	@OneToMany(mappedBy="orderProductQuantityId.UserOrder_idUserOrder")
 	private Set<OrderProductQuantity> orderProductQuantity;
 	
-	public UserOrder(Long idUserOrder, ZonedDateTime dateUserOrder, Long Usuario_idUser) {
+	public UserOrder(Long idUserOrder, ZonedDateTime dateUserOrder, Long User_idUser) {
 		super();
 		this.idUserOrder = idUserOrder;
 		this.dateUserOrder = dateUserOrder;
-		this.Usuario_idUser = Usuario_idUser;
+		this.User_idUser = User_idUser;
 	}//constructor
 	
 	public UserOrder() {}//constructor vacío
@@ -49,18 +49,18 @@ public class UserOrder {
 		this.dateUserOrder = dateUserOrder;
 	}
 
-	public Long getUsuario_idUser() {
-		return Usuario_idUser;
+	public Long getUser_idUser() {
+		return User_idUser;
 	}
 
-	public void setUsuario_idUser(Long usuario_idUser) {
-		Usuario_idUser = usuario_idUser;
+	public void setUser_idUser(Long user_idUser) {
+		User_idUser = user_idUser;
 	}
 
 	@Override
 	public String toString() {
-		return "UserOrder [idUserOrder=" + idUserOrder + ", dateUserOrder=" + dateUserOrder + ", Usuario_idUser="
-				+ Usuario_idUser + "]";
+		return "UserOrder [idUserOrder=" + idUserOrder + ", dateUserOrder=" + dateUserOrder + ", User_idUser="
+				+ User_idUser + "]";
 	}
 
 	
