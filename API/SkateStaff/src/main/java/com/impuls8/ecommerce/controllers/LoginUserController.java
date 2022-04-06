@@ -13,7 +13,7 @@ import com.impuls8.ecommerce.service.LoginUserService;
 
 
 @RestController
-@RequestMapping (path="/api/users/login")
+@RequestMapping (path="/api/users/login/")
 @CrossOrigin(origins="*")
 public class LoginUserController {
 

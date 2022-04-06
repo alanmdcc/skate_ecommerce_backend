@@ -13,19 +13,19 @@ import com.impuls8.ecommerce.models.User;
 @Service
 public class UserService {
 	
-	private final UserRepository usuariosRepository;
+	private final UserRepository userRepository;
 	@Autowired
-	public UserService(UserRepository usuariosRepository) {
-		this.usuariosRepository = usuariosRepository;
+	public UserService(UserRepository userRepository) {
+		this.userRepository = userRepository;
 	}//constructor
 	
 	public List<User> getUsers(){
-		return usuariosRepository.findAll();
+		return userRepository.findAll();
 	}//getUsuarios
 	
 public User getUser(Long id) {
 		
-		return usuariosRepository.findById(id).orElseThrow(
+		return userRepository.findById(id).orElseThrow(
 				()-> new IllegalStateException ("El usuario con el id"+ id + "no existe."));
 		
 	}//getUsuario
@@ -33,33 +33,33 @@ public User getUser(Long id) {
 
 public void deleteUser(Long id) {
 	
-	if (usuariosRepository.existsById(id)) {
-		usuariosRepository.deleteById(id);
+	if (userRepository.existsById(id)) {
+		userRepository.deleteById(id);
 	}//if exit deleteUsuario
 
 }//deleteUsuario
 
 public void addUser(User usuario) {
-	Optional<User> userByName=UserRepository.findByUsername(usuario.getUserName());
+	Optional<User> userByName=userRepository.findByUsername(usuario.getUserName());
 	if(userByName.isPresent()) {
 		throw new IllegalStateException("El Usuario con el nombre [" + usuario.getUserName() + 
 				"] YA existe."); 	
 	} else {
-		usuariosRepository.save(usuario);
+		userRepository.save(usuario);
 	}//else 
 	
 }//addUsuario
 
 public void updateUser(ChangePassword changePassword) {
 	//Primero lo busco
-	Optional<User> userByName=UserRepository.findByUsername(changePassword.getUsername());
+	Optional<User> userByName=userRepository.findByUsername(changePassword.getUsername());
 	if(userByName.isPresent()) {
 		//me va a traer al usuario con el get
 		User u = userByName.get();
 		if (u.getPassword().equals(changePassword.getPassword())) {	
 		u.setPassword(changePassword.getNewPassword());
 		
-			usuariosRepository.save(u);
+			userRepository.save(u);
 		}//password
 }//if isPresent
 	

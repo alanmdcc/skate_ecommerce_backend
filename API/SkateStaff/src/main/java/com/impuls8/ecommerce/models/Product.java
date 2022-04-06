@@ -13,15 +13,15 @@ public class Product {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	@Column(name="id", unique=true, nullable=false)
+	@Column(name="idProduct", unique=true, nullable=false)
     
 	private Long idProduct;
 	private String nameProduct;
 	private String descriptionProduct;
 	private String productPicture;
 	private double priceProduct;
+	@Column(name="Category_idCategory", unique=true, nullable=false)
 	private int idCategory;
-	private static int total=0;
 	public Product(String nameProduct, String descriptionProduct, String productPicture, double priceProduct,
 			 int idCategory) {
 		super();
@@ -67,12 +67,7 @@ public class Product {
 	public void setIdCategory(int idCategory) {
 		this.idCategory = idCategory;
 	}
-	public static int getTotal() {
-		return total;
-	}
-	public static void setTotal(int total) {
-		Product.total = total;
-	}
+
 	public Long getIdProduct() {
 		return idProduct;
 	}

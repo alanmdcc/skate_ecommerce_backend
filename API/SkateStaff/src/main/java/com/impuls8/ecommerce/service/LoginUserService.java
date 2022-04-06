@@ -19,11 +19,11 @@ public class LoginUserService {
 		this.userRepository = userRepository;
 	}//constructor
 	
-	private  UserService userService = new UserService(null);
+	//private  UserService userService = new UserService(null);
 	
 	public boolean validateUser(User user) {
 		boolean res=false;
-	    Optional<User> userByName=UserRepository.findByUsername(user.getUserName());
+	    Optional<User> userByName=userRepository.findByUsername(user.getUserName());
 	    if(userByName.isPresent()) {
 	    	User u=userByName.get();
 	    	if(SHAutils.verifyHash(user.getPassword(), u.getPassword())){

@@ -6,12 +6,12 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.impuls8.ecommerce.models.User;
 public interface UserRepository extends JpaRepository<User, Long> {
-	@Query("SELECT u FROM Usuario u WHERE u.username=?1") ///va a ir a buscar u de usuario
-	static
-	Optional<User> findByUsername(String username) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	@Query("SELECT u FROM User u WHERE u.userName=?1") ///va a ir a buscar u de usuario
+	
+	Optional<User> findByUsername(String username);
+		
+		
+	
 
 }//ProductosRepository
 
