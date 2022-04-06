@@ -1,77 +1,79 @@
 package com.impuls8.ecommerce.service;
 
-import java.util.ArrayList;
-
-import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Optional;
 
 import com.impuls8.ecommerce.models.Product;
+import com.impuls8.ecommerce.service.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ProductService {
 
-	public final ArrayList<Product> lista= new ArrayList<Product>();
-	
-	public ProductService() {
-		lista.add(		
-				 new Product("Skate Alien Invasion", 
-						"Skate con diseño de alien", 
-						"alien.jpg", 1500, 1)
-				);
-				lista.add( new Product("Skate Octopus", 
-						"Skate con diseño de pulpo", 
-						"octopus.jpg", 1700, 2)
-						);
-				lista.add( new Product("Orange Pennyboard", 
-						"Skate de color naranja", 
-						"orangePenny.jpg", 1300, 1)
-						);
+	private final ProductRepository productRepository;
+	@Autowired
+	public ProductService(ProductRepository productRepository) {
+		this.productRepository = productRepository;
 	}//constructor
-
-	public ArrayList<Product> getProducts() {
-		return lista;
+	
+	
+	public List<Product> getProducts(){
+		return productRepository.findAll();
 	}//getProducts
-
-	public Product getProduct(Long prodId) {
-	   Product tmpProd =null;
-		for (Product product : lista) {
-			if(product.getIdProduct()==prodId) {
-				tmpProd=product;
-				break;
-			}//if
-		}//foreach	
-		return tmpProd;
+	
+	public Product getProduct(Long id) {
+		
+		return productRepository.findById(id).orElseThrow(
+				()-> new IllegalStateException ("El product con el id"+ id + "no existe."));
+		
 	}//getProduct
 
-	public Product deleteProduct(Long prodId) {
-		Product tmpProd =null;
-		for (Product product : lista) {
-			if(product.getIdProduct()==prodId) {
-				tmpProd = lista.remove(lista.indexOf(product));
-				break;
-			}//if
-		}//foreach	
-		return tmpProd;
+
+	public Product deleteProduct(Long id) {
+		Product tmpProduct = null;
+		if (productRepository.existsById(id)) {
+			tmpProduct = productRepository.findById(id).get();
+			productRepository.deleteById(id);
+		}//exit
+		return tmpProduct;
 	}//deleteProduct
-	
-	public Product udpateProduct(Long prodId, String nombre, String descripcion, String uRL_imagen, double precio) {
-		Product tmpProd = null;
-		for (Product product : lista) {
-			if(product.getIdProduct()==prodId) {
-				if(nombre != null) product.setNameProduct(nombre);
-				if(descripcion != null) product.setDescriptionProduct(descripcion);
-				if(uRL_imagen != null) product.setProductPicture(uRL_imagen);
-				if(precio>0) product.setPriceProduct(precio);
-				tmpProd = product; 
-				break;
-			}//if==prodId
-		}//for each
-		return tmpProd;
-	}//updateProduct
 
 
 	public Product addProduct(Product product) {
-		lista.add(product);
-		return product;
+		Product tmpProduct = null;
+		Optional<Product> prodByName=productRepository.findByNombre(product.getNameProduct());
+		if(prodByName.isPresent()) {
+			throw new IllegalStateException("El Product con el nombre [" + product.getNameProduct() + 
+					"] YA existe."); 	
+		} else {
+			productRepository.save(product);
+			tmpProduct = product;
+		}//else 
+		return tmpProduct;
 	}//addProduct
+
+
+	
+
+
+	public Product updateProduct(Long id, String nombre, String descripcion, String uRL_imagen, Double precio) {
+		Product tmpProduct=null;
+		if (productRepository.existsById(id)) {
+			tmpProduct = productRepository.findById(id).get();
+			if (nombre!=null)tmpProduct.setNameProduct(nombre);
+			if (descripcion!=null)tmpProduct.setDescriptionProduct(descripcion);
+			if (uRL_imagen!=null)tmpProduct.setProductPicture(uRL_imagen);
+			if (precio!=null && precio.doubleValue()>0) tmpProduct.setPriceProduct(precio.doubleValue());
+			productRepository.save(tmpProduct);
+		}else {
+			System.out.println("No existe el product con el id"+id);
+		}//else //if
+			
+		
+		return tmpProduct;
+	}
+
+	
 
 }//ProductService

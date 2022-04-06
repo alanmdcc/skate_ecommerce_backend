@@ -1,29 +1,36 @@
 package com.impuls8.ecommerce.service;
 
+import java.util.Optional;
+
+
+import com.impuls8.ecommerce.utils.SHAutils;
+
+import com.impuls8.ecommerce.service.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.impuls8.ecommerce.models.User;
 
 @Service
 public class LoginUserService {
+	private final UserRepository userRepository;
+	@Autowired
+	public LoginUserService(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}//constructor
 	
-	private  UserService userService = new UserService();
+	//private  UserService userService = new UserService(null);
 	
-	public String validateUser(User user) {
-		User tmpUser =null;
-		   String message="El usuario no está registrado";
-			for (User userLista : userService.lista) {
-				if(userLista.getUserEmail().equals(user.getUserEmail())){
-					tmpUser=userLista;
-					if(tmpUser.getPassword().equals(user.getPassword())) {
-						message="Inicio de sesión exitoso";
-						break;
-					}//if
-					message="Email no coincide con la contraseña";
-					break;
-				}//if
-			}//foreach	
-			return message;
-	}//validateUser
+	public boolean validateUser(User user) {
+		boolean res=false;
+	    Optional<User> userByName=userRepository.findByUsername(user.getUserName());
+	    if(userByName.isPresent()) {
+	    	User u=userByName.get();
+	    	if(SHAutils.verifyHash(user.getPassword(), u.getPassword())){
+	    		res=true;
+	    	}//if password
+	    }//isPresent
+	    return res;
+	}
 	
 }//LoginUserService

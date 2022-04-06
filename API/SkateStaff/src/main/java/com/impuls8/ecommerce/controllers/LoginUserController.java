@@ -13,7 +13,7 @@ import com.impuls8.ecommerce.service.LoginUserService;
 
 
 @RestController
-@RequestMapping (path="/api/users/login")
+@RequestMapping (path="/api/users/login/")
 @CrossOrigin(origins="*")
 public class LoginUserController {
 
@@ -25,7 +25,7 @@ public class LoginUserController {
 	}//constructor
 	
 	@PostMapping
-	public String validateUser(@RequestBody User user) {
+	public boolean validateUser(@RequestBody User user) {
 		return loginUserService.validateUser(user);
 	}//addProducto
 	
