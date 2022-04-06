@@ -21,9 +21,9 @@ public class Product {
 	private String productPicture;
 	private double priceProduct;
 	@Column(name="Category_idCategory", unique=true, nullable=false)
-	private int idCategory;
+	private Long idCategory;
 	public Product(String nameProduct, String descriptionProduct, String productPicture, double priceProduct,
-			 int idCategory) {
+			 Long idCategory) {
 		super();
 		this.nameProduct = nameProduct;
 		this.descriptionProduct = descriptionProduct;
@@ -61,10 +61,10 @@ public class Product {
 	public void setPriceProduct(double priceProduct) {
 		this.priceProduct = priceProduct;
 	}
-	public int getIdCategory() {
+	public Long getIdCategory() {
 		return idCategory;
 	}
-	public void setIdCategory(int idCategory) {
+	public void setIdCategory(Long idCategory) {
 		this.idCategory = idCategory;
 	}
 

@@ -74,6 +74,12 @@ public class ProductService {
 		return tmpProduct;
 	}
 
+
+	public List<Product> getProductsByCategory(Long category) {
+		return productRepository.findByCategory(category).orElseThrow(
+				()-> new IllegalStateException ("El product con el id"+ category + "no existe."));
+	}//getProductsBYCategory
+
 	
 
 }//ProductService
