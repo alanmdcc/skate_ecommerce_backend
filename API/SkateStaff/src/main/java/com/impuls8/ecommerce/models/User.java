@@ -12,27 +12,27 @@ import javax.persistence.Table;
 public class User {
 	@Id//indica que el private long es un id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //campo para identificar (autoincrement)
-	@Column(name="id", unique=true, nullable=false)//(PK, NN - not null)
+	@Column(name="idUser", unique=true, nullable=false)//(PK, NN - not null)
 	
-	private Long id;
+	private Long idUser;
 	private String userName;
 	private String userEmail;
 	private String userPhone;
 	private String password;
 	private boolean isAdmin;
-	public User(Long id, String userName, String userEmail, String userPhone, String password, boolean isAdmin) {
-		this.id = id;
+	public User(Long idUser, String userName, String userEmail, String userPhone, String password, boolean isAdmin) {
+		this.idUser = idUser;
 		this.userName = userName;
 		this.userEmail = userEmail;
 		this.userPhone = userPhone;
 		this.password = password;
 		this.isAdmin = isAdmin;
 	}
-	public Long getId() {
-		return id;
+	public Long getIdUser() {
+		return idUser;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdUser(Long idUser) {
+		this.idUser = idUser;
 	}
 	public String getUserName() {
 		return userName;
@@ -66,8 +66,9 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", userName=" + userName + ", userEmail=" + userEmail + ", userPhone=" + userPhone
-				+ ", password=" + password + ", isAdmin=" + isAdmin + "]";
+		return "User [idUser=" + idUser + ", userName=" + userName + ", userEmail=" + userEmail + ", userPhone="
+				+ userPhone + ", password=" + password + ", isAdmin=" + isAdmin + "]";
 	}
+	
 	
 }//User
