@@ -1,6 +1,6 @@
 package com.impuls8.ecommerce.controllers;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,7 +30,7 @@ public class ProductController {
 	}//constructor
 	
 	@GetMapping
-	public ArrayList<Product>getProducts() {
+	public List<Product>getProducts() {
 		return productService.getProducts();
 	}//getProducts
 	
@@ -55,7 +55,7 @@ public class ProductController {
 			@RequestParam(required=false) String descripcion,
 			@RequestParam(required=false) String URL_imagen,
 			@RequestParam(required=false) Double precio) {
-			return productService.udpateProduct(prodId,nombre,descripcion,URL_imagen,precio);
+			return productService.updateProduct(prodId,nombre,descripcion,URL_imagen,precio);
 	}//updateProduct
 	
 }//class
