@@ -1,91 +1,75 @@
 package com.impuls8.ecommerce.service;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.impuls8.ecommerce.models.ChangePassword;
 import com.impuls8.ecommerce.models.User;
+import com.impuls8.ecommerce.utils.SHAUtils;
 
 @Service
 public class UserService {
 	
-	public final ArrayList<User> lista= new ArrayList<User>();
+	private final UserRepository userRepository;
 	
-	public UserService() {
-		lista.add(		
-				 new User("Alan Martin del Campo", "alanmdc@gmail.com",
-						 "5588899", "password", false)
-				);
-				lista.add( new User("Andres Arellano", "andresab@gmail.com",
-						 "5688789", "password", false)
-						);
-				lista.add( new User("Manuel Aguirre", "manuel.ag@gmail.com",
-						 "5599899", "password", false)
-						);
-				lista.add( new User("David Martinez", "davidmtz@gmail.com",
-						 "5577777", "password", false)
-						);
-	}//constructor
+	@Autowired
+	public UserService(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}//userRepository constructor
 	
-	public ArrayList<User> getUsers() {
-		return lista;
-	}//getUsers
-
-	public User getUser(Long userId) {
-	   User tmpProd =null;
-		for (User user : lista) {
-			if(user.getId()==userId) {
-				tmpProd=user;
-				break;
-			}//if
-		}//foreach	
-		return tmpProd;
-	}//getUser
+	public List<User> getUsuarios(){
+		return userRepository.findAll();
+	}
 	
-	public User deleteUser(Long userdId) {
-		User tmpProd =null;
-		for (User User : lista) {
-			if(User.getId()==userdId) {
-				lista.remove(lista.indexOf(User));
-				break;
-			}//if
-		}//foreach	
-		return tmpProd;
-	}//deleteUser
+	public User getUsuario(Long id) {
+		return userRepository.findById(id).orElseThrow(
+				()-> new IllegalStateException(
+						"El usuario con el id [" + id + "] no existe"));
+	}
+	public void deleteUsuario(Long id) {
+		if(userRepository.existsById(id)) {
+			userRepository.deleteById(id);
+		}//if exist
+	}//deleteUsuario
 	
-	public User updateUser(Long userId, String userName, String userEmail, String userPhone,
-			String password, boolean isAdmin) {
-		User tmpProd = null;
-		for (User User : lista) {
-			if(User.getId()==userId) {
-				if(userName != null) User.setUserName(userName);
-				if(userEmail != null) User.setUserEmail(userEmail);
-				if(userPhone != null) User.setUserPhone(userPhone);
-				if(password != null) User.setPassword(password);
-				User.setAdmin(isAdmin);
-			}//if
-		}//for each
-		return tmpProd;
-	}//updateUser
+	public void updateUsuario(ChangePassword changePassword) {
+		Optional<User> userByName=userRepository.findByUserName(changePassword.getUserName());
+		if(userByName.isPresent()) {
+			User u = userByName.get();;
+			if( SHAUtils.verifyHash(changePassword.getPassword(), u.getPassword())) {
+				u.setPassword(SHAUtils.createHash(changePassword.getNewPassword()));;
+				userRepository.save(u);
+				
+			}
+		}
+	}
 
 
-	public String addUser(User user) {
-		boolean tmpValidation = true;
-		String message ="";
-		for (User userLista : lista) {
-			if(user.getUserEmail().equals(userLista.getUserEmail())) {
-				tmpValidation = false;
-				System.out.println("Correos iguales");
-				message="El correo ingresado ya existe";
-				break;
-			}//if
-		}//foreach
-		if(tmpValidation) {
-			lista.add(user);
-			message="Se agrego un nuevo usuario con los siguientes datos: "+user.toString();
-		}//if
-		
-		return message;
-	}//addUser
+	public void addUsuario(User user) {
+		Optional<User> userByName=userRepository.findByUserName(user.getUserName());
+		if(userByName.isPresent()) {
+			throw new IllegalStateException("El usuario con el nombre [" + user.getUserName() +
+					"] Ya existe.");
+		} else {
+			user.setPassword(SHAUtils.createHash(user.getPassword()));
+			userRepository.save(user);
+		}
+	}
 
+	public boolean validateUsuario(User user) {
+		boolean res = false;
+		Optional<User> userByName=userRepository.findByUserName(user.getUserName());
+		if(userByName.isPresent()) {
+			User u = userByName.get();;
+			if(SHAUtils.verifyHash(user.getPassword(), u.getPassword())) {
+				res = true;
+				
+			}
+		}
+		return res;
+	}
 }//UserService
