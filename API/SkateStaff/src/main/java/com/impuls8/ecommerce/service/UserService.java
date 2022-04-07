@@ -39,20 +39,27 @@ public void deleteUser(Long id) {
 
 }//deleteUsuario
 
-public void addUser(User usuario) {
-	Optional<User> userByName=userRepository.findByUsername(usuario.getUserName());
+public boolean addUser(User usuario) {
+	Optional<User> userByName=userRepository.findByUseremail(usuario.getUserEmail());
+	String cad ="";
+	boolean res;
 	if(userByName.isPresent()) {
-		throw new IllegalStateException("El Usuario con el nombre [" + usuario.getUserName() + 
-				"] YA existe."); 	
+		cad="El Usuario con el correo [" + usuario.getUserEmail() + 
+				"] YA existe.";
+		res=false;
+//		throw new IllegalStateException("El Usuario con el correo [" + usuario.getUserEmail() + 
+//				"] YA existe."); 	
 	} else {
+		cad="registro exitoso";
+		res=true;
 		userRepository.save(usuario);
 	}//else 
-	
+	return res;
 }//addUsuario
 
 public void updateUser(ChangePassword changePassword) {
 	//Primero lo busco
-	Optional<User> userByName=userRepository.findByUsername(changePassword.getUsername());
+	Optional<User> userByName=userRepository.findByUseremail(changePassword.getUserEmail());
 	if(userByName.isPresent()) {
 		//me va a traer al usuario con el get
 		User u = userByName.get();

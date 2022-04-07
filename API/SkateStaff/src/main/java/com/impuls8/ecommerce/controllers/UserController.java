@@ -49,8 +49,8 @@ private final UserService userService;
 	
 	
 	@PostMapping
-    public void addUsuario(@RequestBody User user)	{
-		userService.addUser(user);
+    public boolean addUsuario(@RequestBody User user)	{
+		return userService.addUser(user);
 		
 	}//addUsuario
 	
