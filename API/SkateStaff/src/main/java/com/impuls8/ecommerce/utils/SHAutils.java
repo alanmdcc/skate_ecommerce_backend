@@ -7,7 +7,7 @@ public class SHAutils {
 	public static String salt="MJP"; //salt agrega caracteres para ser cifrados por el sha256
 	public static String createHash(String value) {
 		String res="";
-		//value +=salt;
+		value +=salt;
 		try {
 		 MessageDigest md= MessageDigest.getInstance("SHA-256");
 		 md.update(value.getBytes());
@@ -31,8 +31,8 @@ public class SHAutils {
 		String res= createHash(original);
 		return res.equals(hash);
 	}
-	public static void main(String [] args) {
-		System.out.println(createHash("Pa$$w0rd"));
-	}
+//	public static void main(String [] args) {
+//		System.out.println(createHash("Pa$$w0rd"));
+//	}
 	
 }//class SHAutils

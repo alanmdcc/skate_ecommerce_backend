@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.impuls8.ecommerce.models.ChangePassword;
 import com.impuls8.ecommerce.models.User;
+import com.impuls8.ecommerce.utils.SHAutils;
 
 @Service
 public class UserService {
@@ -23,22 +24,21 @@ public class UserService {
 		return userRepository.findAll();
 	}//getUsuarios
 	
-public User getUser(Long id) {
-		
+	public User getUser(Long id) {
 		return userRepository.findById(id).orElseThrow(
 				()-> new IllegalStateException ("El usuario con el id"+ id + "no existe."));
 		
 	}//getUsuario
 
 
-public void deleteUser(Long id) {
-	
-	if (userRepository.existsById(id)) {
+	public void deleteUser(Long id) {
+		if (userRepository.existsById(id)) {
 		userRepository.deleteById(id);
-	}//if exit deleteUsuario
+		}//if exit deleteUsuario
 
-}//deleteUsuario
+	}//deleteUsuario
 
+<<<<<<< HEAD
 public boolean addUser(User usuario) {
 	Optional<User> userByName=userRepository.findByUseremail(usuario.getUserEmail());
 	String cad ="";
@@ -69,10 +69,48 @@ public void updateUser(ChangePassword changePassword) {
 			userRepository.save(u);
 		}//password
 }//if isPresent
+=======
+	public void addUser(User user) {
+		Optional<User> userByName=userRepository.findByUsername(user.getUserName());
+		if(userByName.isPresent()) {
+			throw new IllegalStateException("El usuario con el nombre [" + user.getUserName() +
+					"] Ya existe.");
+		} else {
+			user.setPassword(SHAutils.createHash(user.getPassword()));
+			userRepository.save(user);
+		}
 	
-	
-}//updateUsuario
+	}//addUsuario
 
+	public void updateUser(ChangePassword changePassword) {
+		//Primero lo busco
+		Optional<User> userByName=userRepository.findByUsername(changePassword.getUsername());
+		if(userByName.isPresent()) {
+			User u = userByName.get();;
+			if( SHAutils.verifyHash(changePassword.getPassword(), u.getPassword())) {
+				u.setPassword(SHAutils.createHash(changePassword.getNewPassword()));;
+				userRepository.save(u);
+				
+			}
+		}
+>>>>>>> 9bc816c34f5e062ef33cbc5724fc57f140e4912c
+	
+	
+	
+	}//updateUsuario
+
+	public boolean validateUser(User user) {
+		boolean res = false;
+		Optional<User> userByName=userRepository.findByUsername(user.getUserName());
+		if(userByName.isPresent()) {
+			User u = userByName.get();;
+			if(SHAutils.verifyHash(user.getPassword(), u.getPassword())) {
+				res = true;
+				
+			}
+		}
+		return res;
+	}
 
 
 
