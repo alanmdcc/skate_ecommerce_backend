@@ -2,49 +2,63 @@ package com.impuls8.ecommerce.models;
 
 public class ChangePassword {
 	
-	private String username;
+	private String userEmail;
 	private String password;
 	private String newPassword;
-	private boolean isAdmin;
-	public ChangePassword(String username, String password, String newPassword, boolean isAdmin) {
-		this.username = username;
+	
+	
+	public ChangePassword(String userEmail, String password, String newPassword) {
+		
+		this.userEmail = userEmail;
 		this.password = password;
 		this.newPassword = newPassword;
-		this.isAdmin = isAdmin;
-	}
+	}//ChangePassword
+
+
 	public ChangePassword() {
-	
+		
+	}//ChangePassword
+
+
+	public String getUserEmail() {
+		return userEmail;
 	}
-	
-	public String getUsername() {
-		return username;
+
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
+
+
 	public String getPassword() {
 		return password;
 	}
+
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+
 	public String getNewPassword() {
 		return newPassword;
 	}
+
+
 	public void setNewPassword(String newPassword) {
 		this.newPassword = newPassword;
 	}
-	public boolean isAdmin() {
-		return isAdmin;
-	}
-	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
-	}
+
+
 	@Override
 	public String toString() {
-		return "ChangePassword [username=" + username + ", password=" + password + ", newPassword=" + newPassword
-				+ ", isAdmin=" + isAdmin + "]";
+		return "ChangePassword [username=" + userEmail + ", password=" + password + ", newPassword=" + newPassword + "]";
 	}
+	
+	
+	
+      
+	
 	
 	
 	

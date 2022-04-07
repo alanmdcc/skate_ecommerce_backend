@@ -38,7 +38,7 @@ public class UserService {
 
 	}//deleteUsuario
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 public boolean addUser(User usuario) {
 	Optional<User> userByName=userRepository.findByUseremail(usuario.getUserEmail());
 	String cad ="";
@@ -52,39 +52,15 @@ public boolean addUser(User usuario) {
 	} else {
 		cad="registro exitoso";
 		res=true;
+		usuario.setPassword(SHAutils.createHash(usuario.getPassword()));
 		userRepository.save(usuario);
 	}//else 
 	return res;
 }//addUsuario
 
-public void updateUser(ChangePassword changePassword) {
-	//Primero lo busco
-	Optional<User> userByName=userRepository.findByUseremail(changePassword.getUserEmail());
-	if(userByName.isPresent()) {
-		//me va a traer al usuario con el get
-		User u = userByName.get();
-		if (u.getPassword().equals(changePassword.getPassword())) {	
-		u.setPassword(changePassword.getNewPassword());
-		
-			userRepository.save(u);
-		}//password
-}//if isPresent
-=======
-	public void addUser(User user) {
-		Optional<User> userByName=userRepository.findByUsername(user.getUserName());
-		if(userByName.isPresent()) {
-			throw new IllegalStateException("El usuario con el nombre [" + user.getUserName() +
-					"] Ya existe.");
-		} else {
-			user.setPassword(SHAutils.createHash(user.getPassword()));
-			userRepository.save(user);
-		}
-	
-	}//addUsuario
-
 	public void updateUser(ChangePassword changePassword) {
 		//Primero lo busco
-		Optional<User> userByName=userRepository.findByUsername(changePassword.getUsername());
+		Optional<User> userByName=userRepository.findByUseremail(changePassword.getUserEmail());
 		if(userByName.isPresent()) {
 			User u = userByName.get();;
 			if( SHAutils.verifyHash(changePassword.getPassword(), u.getPassword())) {
@@ -93,7 +69,7 @@ public void updateUser(ChangePassword changePassword) {
 				
 			}
 		}
->>>>>>> 9bc816c34f5e062ef33cbc5724fc57f140e4912c
+
 	
 	
 	
@@ -101,7 +77,7 @@ public void updateUser(ChangePassword changePassword) {
 
 	public boolean validateUser(User user) {
 		boolean res = false;
-		Optional<User> userByName=userRepository.findByUsername(user.getUserName());
+		Optional<User> userByName=userRepository.findByUseremail(user.getUserEmail());
 		if(userByName.isPresent()) {
 			User u = userByName.get();;
 			if(SHAutils.verifyHash(user.getPassword(), u.getPassword())) {
