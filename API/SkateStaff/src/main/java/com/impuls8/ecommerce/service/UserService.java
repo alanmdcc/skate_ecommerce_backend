@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.impuls8.ecommerce.models.ChangePassword;
 import com.impuls8.ecommerce.models.User;
+import com.impuls8.ecommerce.utils.SHAutils;
 
 @Service
 public class UserService {
@@ -23,49 +24,60 @@ public class UserService {
 		return userRepository.findAll();
 	}//getUsuarios
 	
-public User getUser(Long id) {
-		
+	public User getUser(Long id) {
 		return userRepository.findById(id).orElseThrow(
 				()-> new IllegalStateException ("El usuario con el id"+ id + "no existe."));
 		
 	}//getUsuario
 
 
-public void deleteUser(Long id) {
-	
-	if (userRepository.existsById(id)) {
+	public void deleteUser(Long id) {
+		if (userRepository.existsById(id)) {
 		userRepository.deleteById(id);
-	}//if exit deleteUsuario
+		}//if exit deleteUsuario
 
-}//deleteUsuario
+	}//deleteUsuario
 
-public void addUser(User usuario) {
-	Optional<User> userByName=userRepository.findByUsername(usuario.getUserName());
-	if(userByName.isPresent()) {
-		throw new IllegalStateException("El Usuario con el nombre [" + usuario.getUserName() + 
-				"] YA existe."); 	
-	} else {
-		userRepository.save(usuario);
-	}//else 
+	public void addUser(User user) {
+		Optional<User> userByName=userRepository.findByUsername(user.getUserName());
+		if(userByName.isPresent()) {
+			throw new IllegalStateException("El usuario con el nombre [" + user.getUserName() +
+					"] Ya existe.");
+		} else {
+			user.setPassword(SHAutils.createHash(user.getPassword()));
+			userRepository.save(user);
+		}
 	
-}//addUsuario
+	}//addUsuario
 
-public void updateUser(ChangePassword changePassword) {
-	//Primero lo busco
-	Optional<User> userByName=userRepository.findByUsername(changePassword.getUsername());
-	if(userByName.isPresent()) {
-		//me va a traer al usuario con el get
-		User u = userByName.get();
-		if (u.getPassword().equals(changePassword.getPassword())) {	
-		u.setPassword(changePassword.getNewPassword());
-		
-			userRepository.save(u);
-		}//password
-}//if isPresent
+	public void updateUser(ChangePassword changePassword) {
+		//Primero lo busco
+		Optional<User> userByName=userRepository.findByUsername(changePassword.getUsername());
+		if(userByName.isPresent()) {
+			User u = userByName.get();;
+			if( SHAutils.verifyHash(changePassword.getPassword(), u.getPassword())) {
+				u.setPassword(SHAutils.createHash(changePassword.getNewPassword()));;
+				userRepository.save(u);
+				
+			}
+		}
 	
 	
-}//updateUsuario
+	
+	}//updateUsuario
 
+	public boolean validateUser(User user) {
+		boolean res = false;
+		Optional<User> userByName=userRepository.findByUsername(user.getUserName());
+		if(userByName.isPresent()) {
+			User u = userByName.get();;
+			if(SHAutils.verifyHash(user.getPassword(), u.getPassword())) {
+				res = true;
+				
+			}
+		}
+		return res;
+	}
 
 
 
