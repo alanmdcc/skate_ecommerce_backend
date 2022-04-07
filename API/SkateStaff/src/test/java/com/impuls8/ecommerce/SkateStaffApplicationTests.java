@@ -1,4 +1,4 @@
-package com.impuls8.Staff;
+package com.impuls8.ecommerce;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

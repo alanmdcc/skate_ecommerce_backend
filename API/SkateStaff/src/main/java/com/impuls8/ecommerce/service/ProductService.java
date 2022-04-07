@@ -40,17 +40,17 @@ public class ProductService {
 	}//deleteProduct
 
 
-	public Product addProduct(Product product) {
-		Product tmpProduct = null;
+	public boolean addProduct(Product product) {
+		boolean tmpBool = false;
 		Optional<Product> prodByName=productRepository.findByNombre(product.getNameProduct());
 		if(prodByName.isPresent()) {
-			throw new IllegalStateException("El Product con el nombre [" + product.getNameProduct() + 
-					"] YA existe."); 	
+//			throw new IllegalStateException("El Product con el nombre [" + product.getNameProduct() + 
+//					"] YA existe."); 	
 		} else {
 			productRepository.save(product);
-			tmpProduct = product;
+			tmpBool = true;
 		}//else 
-		return tmpProduct;
+		return tmpBool;
 	}//addProduct
 
 
