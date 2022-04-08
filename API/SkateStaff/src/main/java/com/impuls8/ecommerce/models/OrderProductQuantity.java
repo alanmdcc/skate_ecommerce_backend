@@ -19,10 +19,6 @@ public class OrderProductQuantity {
 	@JoinColumn(name="UserOrder_idUserOrder", referencedColumnName="idUserOrder", nullable=false, insertable=false,updatable=false)
 	private UserOrder userOrder;
 	
-//	@ManyToOne
-//	@JoinColumn(name="Product_idProduct", referencedColumnName="idProduct", nullable=false, insertable=false,updatable=false)
-//	private Product product;
-	
 	public OrderProductQuantity() {}//constructor vacío
 
 	public OrderProductQuantity(OrderProductQuantityId orderProductQuantityId, Long quantity, UserOrder userOrder) {

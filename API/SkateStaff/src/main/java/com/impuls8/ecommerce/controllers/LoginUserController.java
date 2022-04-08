@@ -40,7 +40,7 @@ public class LoginUserController {
 			return new Token(generateToken(user.getUserName()));
 		}
 		
-		throw new ServletException("nombre de usuario o contrase;a incorrectos");
+		return new Token("");
 	}
 
 	private String generateToken(String userName) {

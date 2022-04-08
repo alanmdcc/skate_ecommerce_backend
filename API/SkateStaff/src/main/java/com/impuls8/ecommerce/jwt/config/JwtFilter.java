@@ -38,12 +38,8 @@ public static String secret = "CHMIX9-gatitos-Linux-y-Drama-20220405";
 				throw new ServletException("1. Invalid Token!");
 			}//if authHeader
 			String token = authHeader.substring(8);
-			System.out.println("[" + token + "]");
 			try {
 				Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
-				claims.forEach( (key,value)->{
-					System.out.println("key: " + key + " value: " + value);
-				});
 				request.setAttribute("claims", claims);
 			} catch (SignatureException | MalformedJwtException | ExpiredJwtException e) {
 				throw new ServletException("2. Invalid token.");

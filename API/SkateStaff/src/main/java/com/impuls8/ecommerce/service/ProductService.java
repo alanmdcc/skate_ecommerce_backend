@@ -44,8 +44,6 @@ public class ProductService {
 		boolean tmpBool = false;
 		Optional<Product> prodByName=productRepository.findByNombre(product.getNameProduct());
 		if(prodByName.isPresent()) {
-//			throw new IllegalStateException("El Product con el nombre [" + product.getNameProduct() + 
-//					"] YA existe."); 	
 		} else {
 			productRepository.save(product);
 			tmpBool = true;

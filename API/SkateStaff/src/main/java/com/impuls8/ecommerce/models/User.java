@@ -33,7 +33,7 @@ public class User {
 
 	public User() {
 		
-	}// constructor vacío
+	}// constructor vacio
 
 	public String getUserName() {
 		return userName;

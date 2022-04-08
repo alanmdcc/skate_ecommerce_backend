@@ -38,7 +38,6 @@ public class UserService {
 
 	}//deleteUsuario
 
-//<<<<<<< HEAD
 public boolean addUser(User usuario) {
 	Optional<User> userByName=userRepository.findByUseremail(usuario.getUserEmail());
 	String cad ="";
@@ -47,8 +46,6 @@ public boolean addUser(User usuario) {
 		cad="El Usuario con el correo [" + usuario.getUserEmail() + 
 				"] YA existe.";
 		res=false;
-//		throw new IllegalStateException("El Usuario con el correo [" + usuario.getUserEmail() + 
-//				"] YA existe."); 	
 	} else {
 		cad="registro exitoso";
 		res=true;
@@ -59,7 +56,6 @@ public boolean addUser(User usuario) {
 }//addUsuario
 
 	public void updateUser(ChangePassword changePassword) {
-		//Primero lo busco
 		Optional<User> userByName=userRepository.findByUseremail(changePassword.getUserEmail());
 		if(userByName.isPresent()) {
 			User u = userByName.get();;

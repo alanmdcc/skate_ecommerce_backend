@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.impuls8.ecommerce.models.User;
 public interface UserRepository extends JpaRepository<User, Long> {
-	@Query("SELECT u FROM User u WHERE u.userEmail=?1") ///va a ir a buscar u de usuario
+	@Query("SELECT u FROM User u WHERE u.userEmail=?1")
 	
 	Optional<User> findByUseremail(String userEmail);
 		

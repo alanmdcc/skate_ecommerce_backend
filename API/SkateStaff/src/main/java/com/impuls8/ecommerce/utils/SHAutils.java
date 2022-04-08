@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class SHAutils {
-	public static String salt="MJP"; //salt agrega caracteres para ser cifrados por el sha256
+	public static String salt="MJP"; 
 	public static String createHash(String value) {
 		String res="";
 		value +=salt;
