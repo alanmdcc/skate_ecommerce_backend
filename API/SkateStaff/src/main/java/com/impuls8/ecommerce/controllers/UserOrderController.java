@@ -43,8 +43,8 @@ public class UserOrderController {
 	}//deleteUserOrder
 	
 	@PostMapping
-	public UserOrder addUserOrder(@RequestBody UserOrder product) {
-		return userOrderService.addUserOrder(product);
+	public UserOrder addUserOrder(@RequestBody UserOrder order) {
+		return userOrderService.addUserOrder(order);
 	}//addUserOrder
 	
 }//UserOrderController

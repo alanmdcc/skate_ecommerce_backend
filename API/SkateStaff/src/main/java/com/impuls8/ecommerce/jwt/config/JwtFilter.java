@@ -26,7 +26,7 @@ public static String secret = "CHMIX9-gatitos-Linux-y-Drama-20220405";
 		
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		String authHeader = httpServletRequest.getHeader("authorization");
-		
+		System.out.println("[" + authHeader + "]");
 		if ( 
 				( ("POST".equals(httpServletRequest.getMethod())) && (! httpServletRequest.getRequestURI().contains("/api/users/") )  ) ||
 				( ("GET".equals(httpServletRequest.getMethod())) && (! httpServletRequest.getRequestURI().contains("/api/products/") )  )||
@@ -37,7 +37,8 @@ public static String secret = "CHMIX9-gatitos-Linux-y-Drama-20220405";
 			if (authHeader == null || !authHeader.startsWith("Impuls8 ") ) {
 				throw new ServletException("1. Invalid Token!");
 			}//if authHeader
-			String token = authHeader.substring(7);
+			String token = authHeader.substring(8);
+			System.out.println("[" + token + "]");
 			try {
 				Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
 				claims.forEach( (key,value)->{

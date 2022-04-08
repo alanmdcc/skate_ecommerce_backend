@@ -94,6 +94,12 @@ public boolean addUser(User usuario) {
 		return tmpUser.isAdmin();
 	}//validateAdmin
 
+	public Long getIdUser(User user) {
+		User tmpUser = userRepository.findByUseremail(user.getUserEmail()).orElseThrow(
+				()-> new IllegalStateException ("El usuario con el email "+ user.getUserEmail() + " no existe."));
+		return tmpUser.getId();
+	}
+
 
 
 }//UserService

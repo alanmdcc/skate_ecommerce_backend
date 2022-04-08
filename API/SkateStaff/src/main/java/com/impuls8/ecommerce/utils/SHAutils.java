@@ -29,10 +29,10 @@ public class SHAutils {
 
 	public static boolean verifyHash(String original,String hash) {
 		String res= createHash(original);
-		return res.equals(hash);
+		return res.equalsIgnoreCase(hash);
 	}
-//	public static void main(String [] args) {
-//		System.out.println(createHash("Pa$$w0rd"));
-//	}
+	public static void main(String [] args) {
+		System.out.println(createHash("password"));
+	}
 	
 }//class SHAutils

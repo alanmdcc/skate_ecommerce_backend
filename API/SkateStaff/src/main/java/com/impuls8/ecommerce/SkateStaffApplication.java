@@ -22,22 +22,23 @@ public class SkateStaffApplication {
 		registrationBean.setFilter(new JwtFilter());
 		registrationBean.addUrlPatterns("/api/users/*");
 		registrationBean.addUrlPatterns("/api/products/*");
-		registrationBean.addUrlPatterns("/api/admin/**");
+		registrationBean.addUrlPatterns("/api/admin/*");
+		registrationBean.addUrlPatterns("/api/iduser/*");
 		
 		return registrationBean;
 	}//jwtFilter
 	
-	public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins(
-                        "*"
-                )
-                .allowedMethods(
-                        "GET",
-                        "PUT",
-                        "POST",
-                        "DELETE",
-                        "PATCH",
-                        "OPTIONS"
-                );}
+//	public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/**")
+//                .allowedOrigins(
+//                        "*"
+//                )
+//                .allowedMethods(
+//                        "GET",
+//                        "PUT",
+//                        "POST",
+//                        "DELETE",
+//                        "PATCH",
+//                        "OPTIONS"
+//                );}
 }
