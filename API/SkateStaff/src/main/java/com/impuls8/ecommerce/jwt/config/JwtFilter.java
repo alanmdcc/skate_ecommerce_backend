@@ -26,7 +26,6 @@ public static String secret = "CHMIX9-gatitos-Linux-y-Drama-20220405";
 		
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		String authHeader = httpServletRequest.getHeader("authorization");
-		System.out.println("[" + authHeader + "]");
 		if ( 
 				( ("POST".equals(httpServletRequest.getMethod())) && (! httpServletRequest.getRequestURI().contains("/api/users/") )  ) ||
 				( ("GET".equals(httpServletRequest.getMethod())) && (! httpServletRequest.getRequestURI().contains("/api/products/") )  )||
